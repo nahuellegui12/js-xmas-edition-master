@@ -46,22 +46,35 @@ function validarDescripcionRegalo(descripcionRegalo) {
 
 function validarFormulario(event) {
   const $form = document.querySelector("#carta-a-santa");
+
   //nombre = document.querySelector('[name=nombre]').value;
+  const nombre = $form.nombre.value;
   const ciudad = $form.ciudad.value;
-  const comportamiento = $form.comportamiento.value;
   const descripcionRegalo = $form["descripcion-regalo"].value;
   
-  const errorNombre = validarNombre($form.nombre.value);
-  const errorCiudad = validarCiudad(ciudad)
+  const errorNombre = validarNombre(nombre);
+  const errorCiudad = validarCiudad(ciudad);
+  const errorDescripcionRegalo = validarDescripcionRegalo(descripcionRegalo);
 
-  manejarErrores([errorNombre, errorCiudad]);
+  const errores = {
+    nombre: errorNombre,
+    ciudad: errorCiudad,
+    descripcionRegalo: errorDescripcionRegalo
+  }
+
+  console.log(errores);
+
+  manejarErrores(errores);
 
   event.preventDefault();
 }
 
+
+
 function manejarErrores(errores) {
-  errorNombre = errores[0]; //nombre
-  errorCiudad = errores[1]; //ciudad
+  errorNombre = errores.nombre; //nombre
+  errorCiudad = errores.ciudad; //ciudad
+  errorDescripcionRegalo = errores.descripcionRegalo; //descripcionRegalo
 
   if (errorNombre) {
     $form.nombre.className = "error";
@@ -72,29 +85,3 @@ function manejarErrores(errores) {
 
 const $form = document.querySelector("#carta-a-santa");
 $form.onsubmit = validarFormulario;
-
-const objeto = {
-  nombre: "Nahuel",
-  apellido: "Leguizamon"
-}
-
-console.log(objeto.nombre);
-
-console.log(objeto["nombre"]);
-
-objeto.profesion = "Desarrollador";
-console.log(objeto);
-
-delete objeto.profesion;
-
-console.log(objeto);
-
-const miObjeto = {
-  p1: "Hola",
-  p2: function(){ console.log("Holap2") },
-  p3: 123,
-  p4: {
-    p5: "Holap5"
-  },
-  p6: [{p7: "Holap7"}]
-};
