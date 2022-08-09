@@ -69,18 +69,35 @@ function validarFormulario(event) {
   event.preventDefault();
 }
 
-
-
 function manejarErrores(errores) {
-  errorNombre = errores.nombre; //nombre
-  errorCiudad = errores.ciudad; //ciudad
-  errorDescripcionRegalo = errores.descripcionRegalo; //descripcionRegalo
 
-  if (errorNombre) {
-    $form.nombre.className = "error";
-  } else {
-    $form.nombre.className = "";
-  }
+  const keys = Object.keys(errores) //[nombre, ciudad, descripcionRegalo]
+  console.log(keys);
+
+  keys.forEach(function(key){
+    console.log(errores[key])
+  })
+  // errorNombre = errores.nombre; //nombre
+  // errorCiudad = errores.ciudad; //ciudad
+  // errorDescripcionRegalo = errores.descripcionRegalo; //descripcionRegalo
+
+  // if (errorNombre) {
+  //   $form.nombre.className = "error";
+  // } else {
+  //   $form.nombre.className = "";
+  // }
+
+  // if (errorCiudad) {
+  //   $form.ciudad.className = "error"
+  // } else {
+  //   $form.cidad.className = ""
+  // }
+
+  // if (errorDescripcionRegalo) {
+  //   $form["descripcion-regalo"].className = "error"
+  // } else {
+  //   $form["descripcion-regalo"].className = ""
+  // }
 }
 
 const $form = document.querySelector("#carta-a-santa");
