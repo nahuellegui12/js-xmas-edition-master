@@ -57,47 +57,46 @@ function validarFormulario(event) {
   const errorDescripcionRegalo = validarDescripcionRegalo(descripcionRegalo);
 
   const errores = {
+    "descripcion-regalo": errorDescripcionRegalo,
     nombre: errorNombre,
-    ciudad: errorCiudad,
-    descripcionRegalo: errorDescripcionRegalo
+    ciudad: errorCiudad
   }
 
   console.log(errores);
 
-  manejarErrores(errores);
+  const esExito = manejarErrores(errores) === 0; //manejarErrores me va  devolver la cantidad de errores con un maximo de 3, Se hace la comparacion y devuelve true or false
+
+  console.log(esExito);
+
+  if(esExito){
+    $form.className = "oculto";
+    document.querySelector('#exito').className = "";
+  }
 
   event.preventDefault();
 }
 
 function manejarErrores(errores) {
-
-  const keys = Object.keys(errores) //[nombre, ciudad, descripcionRegalo]
-  console.log(keys);
+  const keys = Object.keys(errores) //[nombre, ciudad, descripcionRegalo] Me devuelve un array
+  const $errores = document.querySelector('#errores')
+  let cantidadDeErrores = 0;
 
   keys.forEach(function(key){
-    console.log(errores[key])
+    const error = errores[key]
+
+    if(error){
+      cantidadDeErrores++;
+      $form[key].className = "error";
+
+      const $error = document.createElement('li');
+      $error.innerText = error;
+      $errores.appendChild($error); 
+    }else{
+      $form[key].className = ""
+    }
   })
-  // errorNombre = errores.nombre; //nombre
-  // errorCiudad = errores.ciudad; //ciudad
-  // errorDescripcionRegalo = errores.descripcionRegalo; //descripcionRegalo
 
-  // if (errorNombre) {
-  //   $form.nombre.className = "error";
-  // } else {
-  //   $form.nombre.className = "";
-  // }
-
-  // if (errorCiudad) {
-  //   $form.ciudad.className = "error"
-  // } else {
-  //   $form.cidad.className = ""
-  // }
-
-  // if (errorDescripcionRegalo) {
-  //   $form["descripcion-regalo"].className = "error"
-  // } else {
-  //   $form["descripcion-regalo"].className = ""
-  // }
+  document.querySelector("#errores").remove
 }
 
 const $form = document.querySelector("#carta-a-santa");
