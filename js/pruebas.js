@@ -65,10 +65,10 @@ function probarValidarDescripcionRegalo() {
     "La funcion validar descripcion regalo no funciono con una descripcion correcta"
   );
 
-  console.assert(
+  /*console.assert(
     validarDescripcionRegalo(".,.,.,.,.") === "El texto de la descripcion solo puede tener numeros y letras",
     "La funcion validar descripcion regalo no valido que solo sean numeros y letras"
-  )
+  )*/
 }
 
 probarValidarNombre();

@@ -14,6 +14,7 @@ function validarNombre(nombre) {
   if (nombre.length === 0) {
     return "Este campo debe tener al menor 1 caracter";
   }
+  
   if (nombre.length >= 50) {
     return "Este campo debe tener menos de 50 caracteres";
   }
@@ -62,8 +63,6 @@ function validarFormulario(event) {
     ciudad: errorCiudad
   }
 
-  console.log(errores);
-
   const esExito = manejarErrores(errores) === 0; //manejarErrores me va  devolver la cantidad de errores con un maximo de 3, Se hace la comparacion y devuelve true or false
 
   console.log(esExito);
@@ -71,7 +70,19 @@ function validarFormulario(event) {
   if(esExito){
     $form.className = "oculto";
     document.querySelector('#exito').className = "";
+
+    setTimeout(() => {
+      window.location.href = './wishlist.html'
+    }, 5000);
   }
+
+  event.preventDefault();
+}
+
+function eliminarErrores(errorLi){
+    errorLi.forEach((elemento) =>{
+    elemento.remove()
+  })
 
   event.preventDefault();
 }
@@ -81,22 +92,27 @@ function manejarErrores(errores) {
   const $errores = document.querySelector('#errores')
   let cantidadDeErrores = 0;
 
+  let errorLi = document.querySelectorAll(".error-li");
+  eliminarErrores(errorLi);
+
+
   keys.forEach(function(key){
     const error = errores[key]
 
     if(error){
-      cantidadDeErrores++;
+      console.log(error)
+      cantidadDeErrores ++;
       $form[key].className = "error";
 
       const $error = document.createElement('li');
+      $error.className = "error-li"
       $error.innerText = error;
       $errores.appendChild($error); 
     }else{
       $form[key].className = ""
     }
   })
-
-  document.querySelector("#errores").remove
+  return cantidadDeErrores;
 }
 
 const $form = document.querySelector("#carta-a-santa");
